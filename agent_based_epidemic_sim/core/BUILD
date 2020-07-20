@@ -30,16 +30,14 @@ cc_library(
 )
 
 cc_library(
-    name = "public_policy",
-    srcs = ["public_policy.cc"],
-    hdrs = ["public_policy.h"],
+    name = "risk_score",
+    srcs = ["risk_score.cc"],
+    hdrs = ["risk_score.h"],
     deps = [
         ":event",
-        ":integral_types",
-        ":pandemic_cc_proto",
         ":timestep",
         "@com_google_absl//absl/memory",
-        "@com_google_absl//absl/types:span",
+        "@com_google_absl//absl/time",
     ],
 )
 
@@ -162,6 +160,7 @@ cc_library(
     deps = [
         ":duration_specified_visit_generator",
         ":event",
+        ":risk_score",
         ":timestep",
         ":visit",
         ":visit_generator",
@@ -176,7 +175,7 @@ cc_test(
     srcs = ["indexed_location_visit_generator_test.cc"],
     deps = [
         ":indexed_location_visit_generator",
-        ":public_policy",
+        ":risk_score",
         ":visit",
         "@com_google_absl//absl/time",
         "@com_google_googletest//:gtest_main",
@@ -323,7 +322,7 @@ cc_library(
         ":broker",
         ":event",
         ":integral_types",
-        ":public_policy",
+        ":risk_score",
         ":transition_model",
         ":transmission_model",
         ":visit",
@@ -341,7 +340,7 @@ cc_test(
     deps = [
         ":broker",
         ":integral_types",
-        ":public_policy",
+        ":risk_score",
         ":seir_agent",
         ":timestep",
         ":transition_model",
@@ -395,7 +394,7 @@ cc_library(
     ],
     deps = [
         ":event",
-        ":public_policy",
+        ":risk_score",
         ":timestep",
         ":visit",
     ],
@@ -529,7 +528,7 @@ cc_library(
     deps = [
         ":event",
         ":integral_types",
-        ":public_policy",
+        ":risk_score",
         ":timestep",
         ":visit",
         ":visit_generator",
@@ -572,7 +571,7 @@ cc_test(
     deps = [
         ":duration_specified_visit_generator",
         ":integral_types",
-        ":public_policy",
+        ":risk_score",
         ":visit",
         "@com_google_absl//absl/time",
         "@com_google_googletest//:gtest_main",

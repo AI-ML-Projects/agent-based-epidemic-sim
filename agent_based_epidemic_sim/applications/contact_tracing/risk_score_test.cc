@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "agent_based_epidemic_sim/applications/contact_tracing/public_policy.h"
+#include "agent_based_epidemic_sim/applications/contact_tracing/risk_score.h"
 
 #include "absl/time/time.h"
 #include "agent_based_epidemic_sim/applications/contact_tracing/config.pb.h"
 #include "agent_based_epidemic_sim/core/parse_text_proto.h"
-#include "agent_based_epidemic_sim/core/public_policy.h"
+#include "agent_based_epidemic_sim/core/risk_score.h"
 #include "agent_based_epidemic_sim/port/status_matchers.h"
 #include "agent_based_epidemic_sim/util/ostream_overload.h"
 #include "gmock/gmock.h"

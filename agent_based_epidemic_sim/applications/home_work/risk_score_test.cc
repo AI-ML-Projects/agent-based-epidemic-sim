@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "agent_based_epidemic_sim/applications/home_work/public_policy.h"
+#include "agent_based_epidemic_sim/core/risk_score.h"
 
 #include "absl/time/time.h"
 #include "agent_based_epidemic_sim/applications/home_work/config.pb.h"
-#include "agent_based_epidemic_sim/core/public_policy.h"
+#include "agent_based_epidemic_sim/applications/home_work/public_policy.h"
 #include "agent_based_epidemic_sim/port/status_matchers.h"
 #include "agent_based_epidemic_sim/port/time_proto_util.h"
 #include "agent_based_epidemic_sim/util/ostream_overload.h"
