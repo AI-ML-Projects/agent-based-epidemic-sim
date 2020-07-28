@@ -216,6 +216,31 @@ cc_library(
 )
 
 cc_library(
+    name = "graph_location",
+    srcs = ["graph_location.cc"],
+    hdrs = ["graph_location.h"],
+    deps = [
+        ":event",
+        ":integral_types",
+        ":location",
+        "@com_google_absl//absl/container:flat_hash_map",
+        "@com_google_absl//absl/random",
+        "@com_google_absl//absl/random:distributions",
+    ],
+)
+
+cc_test(
+    name = "graph_location_test",
+    srcs = ["graph_location_test.cc"],
+    deps = [
+        ":event",
+        ":graph_location",
+        ":pandemic_cc_proto",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_library(
     name = "location_discrete_event_simulator",
     srcs = [
         "location_discrete_event_simulator.cc",
@@ -227,6 +252,7 @@ cc_library(
         ":broker",
         ":integral_types",
         ":location",
+        ":micro_exposures",
         ":observer",
         ":transmission_model",
         ":visit",
@@ -276,6 +302,16 @@ cc_test(
         ":location_discrete_event_simulator_builder",
         ":uuid_generator",
         "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "micro_exposures",
+    srcs = ["micro_exposures.cc"],
+    hdrs = ["micro_exposures.h"],
+    deps = [
+        ":event",
+        "@com_google_absl//absl/time",
     ],
 )
 
