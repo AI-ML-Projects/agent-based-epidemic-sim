@@ -197,6 +197,18 @@ cc_library(
 )
 
 cc_library(
+    name = "exposure_generator",
+    hdrs = [
+        "exposure_generator.h",
+        "exposure_generator_builder.h",
+    ],
+    deps = [
+        ":event",
+        "@com_google_absl//absl/time",
+    ],
+)
+
+cc_library(
     name = "health_state",
     hdrs = ["health_state.h"],
     deps = [":pandemic_cc_proto"],
@@ -220,12 +232,15 @@ cc_library(
     srcs = ["graph_location.cc"],
     hdrs = ["graph_location.h"],
     deps = [
-        "//agent_based_epidemic_sim/core:event",
-        "//agent_based_epidemic_sim/core:integral_types",
-        "//agent_based_epidemic_sim/core:location",
+        ":event",
+        ":exposure_generator",
+        ":integral_types",
+        ":location",
+        ":micro_exposure_generator",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/random",
         "@com_google_absl//absl/random:distributions",
+        "@com_google_absl//absl/time",
     ],
 )
 
@@ -233,9 +248,10 @@ cc_test(
     name = "graph_location_test",
     srcs = ["graph_location_test.cc"],
     deps = [
+        ":event",
+        ":exposure_generator",
         ":graph_location",
-        "//agent_based_epidemic_sim/core:event",
-        "//agent_based_epidemic_sim/core:pandemic_cc_proto",
+        ":pandemic_cc_proto",
         "@com_google_googletest//:gtest_main",
     ],
 )
@@ -250,6 +266,7 @@ cc_library(
     ],
     deps = [
         ":broker",
+        ":exposure_generator",
         ":integral_types",
         ":location",
         ":observer",
@@ -271,6 +288,7 @@ cc_test(
         ":event",
         ":integral_types",
         ":location_discrete_event_simulator",
+        ":micro_exposure_generator",
         ":observer",
         ":pandemic_cc_proto",
         ":visit",
@@ -290,6 +308,7 @@ cc_library(
     deps = [
         ":location",
         ":location_discrete_event_simulator",
+        ":micro_exposure_generator",
         ":uuid_generator",
     ],
 )
@@ -301,6 +320,25 @@ cc_test(
         ":location_discrete_event_simulator_builder",
         ":uuid_generator",
         "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "micro_exposure_generator",
+    srcs = [
+        "micro_exposure_generator.cc",
+        "micro_exposure_generator_builder.cc",
+    ],
+    hdrs = [
+        "micro_exposure_generator.h",
+        "micro_exposure_generator_builder.h",
+    ],
+    deps = [
+        ":event",
+        ":exposure_generator",
+        ":parameter_distribution_cc_proto",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/time",
     ],
 )
 
@@ -354,7 +392,6 @@ cc_library(
         ":agent",
         ":broker",
         ":constants",
-        ":enum_indexed_array",
         ":event",
         ":integral_types",
         ":public_policy",
@@ -363,7 +400,6 @@ cc_library(
         ":visit",
         ":visit_generator",
         "//agent_based_epidemic_sim/port:logging",
-        "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/container:flat_hash_set",
         "@com_google_absl//absl/time",
         "@com_google_absl//absl/types:span",
@@ -452,7 +488,6 @@ cc_library(
     hdrs = ["distributed.h"],
     deps = [
         ":broker",
-        ":event",
         "@com_google_absl//absl/types:span",
     ],
 )
